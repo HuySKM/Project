@@ -1,17 +1,20 @@
 <?php
-require "vendor/autoload.php";
+
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "codeme.edu.vn";
+$dbname = "northwind";
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$sql = "SELECT * FROM article";
+
+
+$sql = "SELECT * FROM employees";
 $result = $conn->query($sql);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,9 +42,14 @@ $result = $conn->query($sql);
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Title</th>
-                    <th>Content</th>
-                    <th>Status</th>
+                    <th>Company</th>
+                    <th>Last name</th>
+                    <th>First name</th>
+                    <th>Email Addres</th>
+                    <th>Job title</th>
+                    <th>Business Phone</th>
+                    <th>Home Phone</th>
+                    <th>Mobile phone</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -53,9 +61,14 @@ $result = $conn->query($sql);
                         ?>
                         <tr>
                             <td><?php echo $row['id']; ?></td>
-                            <td><?php echo $row['title']; ?></td>
-                            <td><?php echo $row['article_content']; ?></td>
-                            <td><?php echo $row['status']; ?></td>
+                            <td><?php echo $row['company']; ?></td>
+                            <td><?php echo $row['last_name']; ?></td>
+                            <td><?php echo $row['first_name']; ?></td>
+                            <td><?php echo $row['email_address']; ?></td>
+                            <td><?php echo $row['job_title']; ?></td>
+                            <td><?php echo $row['business_phone']; ?></td>
+                            <td><?php echo $row['home_phone']; ?></td>
+                            <td><?php echo $row['mobile_phone']; ?></td>
                         </tr>
                         <?php
                     }

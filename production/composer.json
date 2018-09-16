@@ -1,6 +1,6 @@
 {
-  "name": "dathalong/codeme",
-  "description": "project codeme",
+  "name": "huyskm/codeme",
+  "description": "project",
   "type": "project",
   "require": {
     "monolog/monolog": "^1.23"
