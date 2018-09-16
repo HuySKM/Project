@@ -1,21 +1,3 @@
-<?php
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "northwind";
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-
-$sql = "SELECT * FROM employees";
-$result = $conn->query($sql);
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,51 +17,21 @@ $result = $conn->query($sql);
 
 <div class="container">
     <div class="row">
-        <div>
-            <h2>Basic Table</h2>
-            <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Company</th>
-                    <th>Last name</th>
-                    <th>First name</th>
-                    <th>Email Addres</th>
-                    <th>Job title</th>
-                    <th>Business Phone</th>
-                    <th>Home Phone</th>
-                    <th>Mobile phone</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                <?php
-                if ($result->num_rows > 0) {
-                    // output data of each row
-                    while($row = $result->fetch_assoc()) {
-                        ?>
-                        <tr>
-                            <td><?php echo $row['id']; ?></td>
-                            <td><?php echo $row['company']; ?></td>
-                            <td><?php echo $row['last_name']; ?></td>
-                            <td><?php echo $row['first_name']; ?></td>
-                            <td><?php echo $row['email_address']; ?></td>
-                            <td><?php echo $row['job_title']; ?></td>
-                            <td><?php echo $row['business_phone']; ?></td>
-                            <td><?php echo $row['home_phone']; ?></td>
-                            <td><?php echo $row['mobile_phone']; ?></td>
-                        </tr>
-                        <?php
-                    }
-                }
-                ?>
-
-
-
-                </tbody>
-            </table>
-        </div>
+        <form name="customers" action="process.php" method="post">
+            <div class="form-group">
+                <label>Company:</label>
+                <input type="text" name="company" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Firstname:</label>
+                <input type="text" name="first_name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Lastname:</label>
+                <input type="text" name="last_name" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
     </div>
 </div>
 
