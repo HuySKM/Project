@@ -1,5 +1,4 @@
 <?php
-require "vendor/autoload.php";
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -10,8 +9,11 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$sql = "SELECT * FROM article";
+$id = (int) $_GET['id'];
+$sql = "SELECT * FROM article WHERE id=".$id;
+echo '<br>' . $sql;
 $result = $conn->query($sql);
+$row = $result->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,41 +34,22 @@ $result = $conn->query($sql);
 
 <div class="container">
     <div class="row">
-        <div>
-            <h2>Basic Table</h2>
-            <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Content</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                <?php
-                if ($result->num_rows > 0) {
-                    // output data of each row
-                    while($row = $result->fetch_assoc()) {
-                        ?>
-                        <tr>
-                            <td><?php echo $row['id']; ?></td>
-                            <td><a href="edit.php?id=<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a></td>
-                            <td><?php echo $row['article_content']; ?></td>
-                            <td><?php echo $row['status']; ?></td>
-                        </tr>
-                        <?php
-                    }
-                }
-                ?>
-
-
-
-                </tbody>
-            </table>
-        </div>
+        <form name="article" action="process.php" method="post">
+            <input type="hidden" name="id" value="<?php echo $row['id'] ?>" />
+            <div class="form-group">
+                <label>Tiêu đề:</label>
+                <input type="text" name="title" value="<?php echo $row['title'] ?>" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Nội dung:</label>
+                <input type="text" name="article_content" value="<?php echo $row['article_content'] ?>" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Status:</label>
+                <input type="text" name="status" value="<?php echo $row['status'] ?>" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
     </div>
 </div>
 
