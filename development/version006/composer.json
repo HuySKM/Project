@@ -1,0 +1,10 @@
+{
+  "name": "huyskm/project",
+  "description": "project",
+  "type": "project",
+  "require": {
+    "monolog/monolog": "^1.23"
+  },
+  "license": "gnu",
+  "minimum-stability": "stable"
+}
