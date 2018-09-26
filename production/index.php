@@ -1,33 +1,21 @@
-<?php require 'define.php'; ?>
-<?php require ADMIN_PATH.'partial/header.php'; ?>
-
-    <div class="page-container">
-        <div class="left-content">
-            <div class="mother-grid-inner">
-                <?php require ADMIN_PATH.'partial/header-main.php'; ?>
-
-                <?php
-                if (isset($_GET['page'])) {
-                    $page = $_GET['page'].'.php';
-                    $page_path = ADMIN_PATH.'pages/'.$page;
-                    $check_file_path = file_exists($page_path);
-                    if ($check_file_path) {
-                        require $page_path;
-                    } else {
-                        require ADMIN_PATH.'pages/404.php';
-                    }
-                } else {
-                    require ADMIN_PATH.'pages/dashboard.php';
-                }
-                ?>
-
-                <?php require ADMIN_PATH.'partial/copyright.php'; ?>
-            </div>
-        </div>
-        <?php require ADMIN_PATH.'partial/sidebar.php'; ?>
-
-        <div class="clearfix"> </div>
-    </div>
-    <!--slide bar menu end here-->
-    <!-- mother grid end here-->
-<?php require ADMIN_PATH.'partial/footer.php'; ?>
+<?php
+$admin_path = dirname(__FILE__);
+define("SITE_URL", "http://localhost/project/production/");
+define("ADMIN_PATH", $admin_path);
+define("CORE_PATH", $admin_path.'/core');
+define("APP_PATH", $admin_path.'/app');
+define("CONTROLLER_PATH", $admin_path.'/app/controllers');
+define("MODEL_PATH", $admin_path.'/app/models');
+define("VIEW_PATH", $admin_path.'/app/views');
+spl_autoload_register(function ($class_name) {
+    $paths = array(ADMIN_PATH, CORE_PATH, APP_PATH, CONTROLLER_PATH, MODEL_PATH, VIEW_PATH);
+    foreach ($paths as $path) {
+        $file_path = $path . '/' . $class_name . '.php';
+        if (file_exists($file_path)) {
+            require $file_path;
+        }
+    }
+});
+$app = new Application();
+$app->run();
+?>
