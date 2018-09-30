@@ -1,5 +1,6 @@
 <?php
 class Database{
+
     public static $connection = null;
 
     public function__construct()

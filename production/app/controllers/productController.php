@@ -1,40 +1,51 @@
 <?php
 class productController {
-
-    public  function __construct()
+    /**
+     *
+     * articleController constructor.
+     */
+    public function __construct()
     {
-
-
     }
-
-    public function indexAction()
-    {
-
-
+    /**
+     * Liệt kê tất cả các sản phẩm
+     */
+    public function indexAction(){
+        $data = array();
+        return $this->view('product', 'index', $data);
     }
-    // Xem chi tiet 1 bai viet
-    public function viewAction()
-    {
-
+    public function view($view = '', $action = '', $data = '') {
+        ob_start();
+        extract($data);
+        $view_path = VIEW_PATH . '/' . $view . '/' . $action . '.php';
+        require $view_path;
+        $output = ob_get_contents();
+        ob_end_clean();
+        echo $output;
     }
-    // Them bai viet
-    public function submitAction()
-    {
-
+    /**
+     * Xem chi tiết 1 sản phẩm
+     */
+    public function viewAction(){
     }
-    // Sua bai viet
-    public function editAction()
-    {
-
+    /**
+     * Thêm sản phẩm
+     */
+    public function submitAction(){
     }
-    // Luu du lieu
-    public function storeAction()
-    {
-
+    /**
+     * Sửa sản phẩm
+     */
+    public function editAction() {
     }
-    // Xoa bai viet
-    public function deleteAction()
-    {
-
+    /**
+     * Lưu dữ liệu vào trong database
+     */
+    public function storeAction() {
+    }
+    /**
+     * Xóa sản phẩm
+     */
+    public function deleteAction() {
     }
 }
