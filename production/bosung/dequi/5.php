@@ -1,0 +1,44 @@
+<?php
+$quocgia = array();
+$quocgia[] = array('id' => 1, 'name' => 'Việt nam');
+$quocgia[] = array('id' => 2, 'name' => 'Trung quốc');
+$quocgia[] = array('id' => 3, 'name' => 'Hàn quốc');
+$quocgia[] = array('id' => 4, 'name' => 'Hoa Kỳ');
+$quocgia[] = array('id' => 5, 'name' => 'Canada');
+echo '<br> Bên ngoài hàm lần 1 :';
+echo '<pre>';
+print_r($quocgia);
+echo '</pre>';
+// Tham chiếu với mảng
+function danso(&$param) {
+    if (!empty($param)) {
+        foreach ($param as $key => $value) {
+            if ($value['name'] == 'Việt nam') {
+                $param[$key]['total'] = 90000000;
+            }
+            if ($value['name'] == 'Trung quốc') {
+                $param[$key]['total'] = 1300000000;
+            }
+            if ($value['name'] == 'Hàn quốc') {
+                $param[$key]['total'] = 60000000;
+            }
+            if ($value['name'] == 'Hoa Kỳ') {
+                $param[$key]['total'] = 200000000;
+            }
+            if ($value['name'] == 'Canada') {
+                $param[$key]['total'] = 50000000;
+            }
+        }
+    }
+    echo '<br> Trong hàm : ';
+    echo '<pre>';
+    print_r($param);
+    echo '</pre>';
+    return true;
+}
+    // Gọi hàm
+    danso($quocgia);
+    echo '<br> Bên ngoài hàm :';
+    echo '<pre>';
+    print_r($quocgia);
+    echo '</pre>';

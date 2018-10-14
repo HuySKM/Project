@@ -20,15 +20,10 @@ class articleController {
      * Liệt kê tất cả các bài viết
      */
     public function indexAction(){
-
-        $acticleModel = new articleModel();
-        $articles = $acticleModel->getRows();
+        $articleModel = new articleModel();
+        $articles = $articleModel->getRows();
         $data = array();
         $data['articles'] = $articles;
-
-        echo '<pre>';
-        print_r($data);
-        echo '</pre>';
         return $this->view('article', 'index', $data);
     }
     /**
@@ -48,18 +43,41 @@ class articleController {
      * Sửa bài viết
      */
     public function editAction() {
-        echo '<br>' . __METHOD__;
+        $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+        $data = array();
+        $articleModel = new articleModel();
+        $data['article'] = $articleModel->getRow($id);
+        return $this->view('article', 'edit', $data);
     }
     /**
      * Lưu dữ liệu vào trong database
      */
     public function storeAction() {
-        echo '<br>' . __METHOD__;
+        echo '<pre>';
+        print_r($_FILES);
+        echo '</pre>';
+        $data = $_POST;
+        $articleModel = new articleModel();
+        $articleModel->store($data);
+        $upload = new Upload();
+        $upload_result = $upload->upload($_FILES);
+        echo '<pre>';
+        print_r($upload_result);
+        echo '</pre>';
+        die;
+        header("Location: http://localhost/codeme.edu.vn/production/?controller=article&action=index");
+        die();
     }
     /**
      * Xóa bài viết
      */
     public function deleteAction() {
-        echo '<br>' . __METHOD__;
+        $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+        if ($id > 0) {
+            $articleModel = new articleModel();
+            $articleModel->delete($id);
+        }
+        header("Location: http://localhost/codeme.edu.vn/production/?controller=article&action=index");
+        die();
     }
 }
